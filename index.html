@@ -4,20 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>✿ Send a Bouquet Now</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&family=Courier+Prime:wght@400;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/bloom-tokens.css">
+<link rel="stylesheet" href="styles/bloom-components.css">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root {
-  --parchment:#F5F0EC; --canvas:#EDECEA; --rose:#D9C5C0; --mauve:#B89FA0;
-  --sage:#C4C5AA; --stone:#A8A089; --bark:#2C2725; --muted:#8C7F7A;
-  --hairline:rgba(44,39,37,0.1);
-  --font-display:'Cormorant Garamond',serif;
-  --font-body:'Jost',sans-serif;
-  --font-mono:'Courier Prime',monospace;
-  --font-script:'Dancing Script',cursive;
-  --radius-sm:8px; --radius-md:16px; --radius-lg:24px; --radius-pill:999px;
-  --ease-bloom:cubic-bezier(0.4,0,0.2,1);
-  --ease-petal:cubic-bezier(0.16,1,0.3,1);
+  /* Shorthand aliases → Bloom design tokens */
+  --parchment:var(--color-parchment); --canvas:var(--color-canvas);
+  --rose:var(--color-rose); --mauve:var(--color-mauve); --sage:var(--color-sage);
+  --stone:var(--color-stone); --bark:var(--color-bark); --muted:var(--color-muted);
+  --hairline:var(--color-hairline); --font-script:'Dancing Script',cursive;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -39,10 +36,9 @@ body{background:#FDF5F0;color:var(--bark);font-family:var(--font-body);font-weig
 .deco{position:fixed;pointer-events:none;z-index:0;animation:floatdeco 5s ease-in-out infinite;opacity:0.45;font-size:18px;user-select:none}
 @keyframes floatdeco{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(8deg)}}
 
-.eyebrow{font-family:var(--font-body);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--stone);text-align:center;margin-bottom:6px}
-.page-title{font-family:var(--font-display);font-size:clamp(34px,8vw,54px);font-weight:300;color:var(--bark);text-align:center;line-height:1;letter-spacing:-0.02em;margin-bottom:8px}
-.page-title em{font-style:italic;color:var(--mauve)}
-.page-sub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:40px;font-weight:300;line-height:1.6}
+.page-sub{font-size:13px;color:var(--color-muted);text-align:center;margin-bottom:12px;font-weight:300;line-height:1.6}
+.date-static{font-family:var(--font-mono);font-size:12px;color:var(--color-stone);text-align:center;letter-spacing:0.06em;margin-bottom:32px}
+.date-static strong{color:var(--color-bark)}
 
 .step-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .step-label::after{content:'';flex:1;height:1px;background:var(--hairline)}
@@ -122,17 +118,14 @@ body{background:#FDF5F0;color:var(--bark);font-family:var(--font-body);font-weig
 .swatch-wrap:hover .swatch-label,.swatch.active~.swatch-label{opacity:1}
 .swatch-wrap{display:flex;flex-direction:column;align-items:center}
 
-/* ── DATE & ACTIONS ── */
-.date-row{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:13px;color:var(--muted);margin-bottom:20px;background:var(--parchment);padding:12px 18px;border-radius:var(--radius-pill)}
-.date-row strong{color:var(--bark)}
+/* ── ACTIONS ── */
 .action-stack{display:flex;flex-direction:column;gap:12px}
-.btn-message{background:transparent;border:1.5px solid var(--rose);border-radius:var(--radius-pill);padding:14px 28px;font-family:var(--font-body);font-size:13px;font-weight:300;letter-spacing:0.05em;color:var(--bark);cursor:pointer;transition:background 0.2s,color 0.2s,transform 0.18s var(--ease-petal),border-color 0.2s;display:flex;align-items:center;justify-content:center;gap:10px}
-.btn-message:hover{background:var(--rose);transform:translateY(-2px)}
-.btn-message.has-msg{border-color:#8AB878;background:rgba(138,184,120,0.1)}
-.btn-create{background:var(--bark);color:var(--parchment);border:none;border-radius:var(--radius-pill);padding:16px 36px;font-family:var(--font-body);font-size:12px;font-weight:300;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:background 0.2s,transform 0.18s var(--ease-petal),box-shadow 0.2s;display:flex;align-items:center;justify-content:center;gap:10px}
-.btn-create:hover:not(:disabled){background:#3d3330;transform:translateY(-2px);box-shadow:0 8px 24px rgba(44,39,37,0.25)}
-.btn-create:disabled{opacity:0.38;cursor:not-allowed}
-.create-hint{font-size:11px;color:var(--muted);text-align:center}
+.btn-message{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px 28px;box-shadow:inset 0 0 0 1.5px var(--color-rose)}
+.btn-message:hover{background:var(--color-rose)}
+.btn-message.has-msg{box-shadow:inset 0 0 0 1.5px #8AB878;background:rgba(138,184,120,0.1)}
+.btn-create{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px 36px;text-transform:uppercase;letter-spacing:0.14em}
+.btn-create:disabled{opacity:0.38;cursor:not-allowed;transform:none}
+.create-hint{font-size:11px;color:var(--color-muted);text-align:center}
 
 /* ── MODAL ── */
 .overlay{position:fixed;inset:0;background:rgba(44,39,37,0.42);backdrop-filter:blur(5px);z-index:100;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s}
@@ -159,8 +152,8 @@ body{background:#FDF5F0;color:var(--bark);font-family:var(--font-body);font-weig
 .font-opt.sel{border-color:var(--bark);background:var(--parchment)}
 .font-opt-preview{font-size:15px;color:var(--bark);margin-bottom:3px;line-height:1.2}
 .font-opt-name{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
-.btn-sheet-save{width:100%;margin-top:24px;background:var(--rose);color:var(--bark);border:none;border-radius:var(--radius-pill);padding:15px;font-family:var(--font-body);font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:background 0.2s,transform 0.18s var(--ease-petal)}
-.btn-sheet-save:hover{background:var(--mauve);color:var(--parchment);transform:translateY(-2px)}
+.btn-sheet-save{width:100%;margin-top:24px;padding:15px;font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase}
+.picker-group.bloom-card{overflow:visible;border-radius:var(--radius-md)}
 
 /* ── RESULT SCREEN ── */
 #screen-result{
@@ -215,7 +208,7 @@ body{background:#FDF5F0;color:var(--bark);font-family:var(--font-body);font-weig
 [dir="rtl"] .count-row{flex-direction:row-reverse}
 [dir="rtl"] .carr-arrow.left{left:auto;right:-15px}
 [dir="rtl"] .carr-arrow.right{right:auto;left:-15px}
-[dir="rtl"] .date-row{flex-direction:row-reverse}
+[dir="rtl"] .date-static{direction:rtl}
 [dir="rtl"] .r-row{flex-direction:row-reverse}
 [dir="rtl"] .r-total-row{flex-direction:row-reverse}
 [dir="rtl"] .sheet-handle{margin:0 auto 22px}
@@ -239,9 +232,20 @@ body{background:#FDF5F0;color:var(--bark);font-family:var(--font-body);font-weig
     <span class="deco" style="top:90%;left:6%;animation-delay:1s;font-size:11px">✧</span>
 
     <div class="builder-wrap">
-      <p class="eyebrow" id="el-eyebrow">✿ bloom studio ✿</p>
-      <h1 class="page-title" id="el-page-title">Send a <em>bouquet</em> now</h1>
+      <p class="bloom-eyebrow" style="text-align:center;margin-bottom:6px" id="el-eyebrow">✿ bloom studio ✿</p>
+      <h1 class="bloom-hero" style="text-align:center;font-size:clamp(34px,8vw,54px);margin-bottom:8px" id="el-page-title">Send a <em>bouquet</em> now</h1>
       <p class="page-sub" id="el-page-sub">Choose your flowers, personalise the ribbon &amp; wrap,<br>and send a beautiful bloom to someone you love.</p>
+      <p class="date-static"><span id="el-today-lbl">Today is</span> <strong id="today-date"></strong></p>
+
+      <div class="preview-section">
+        <p class="preview-lbl bloom-eyebrow" id="el-preview-lbl">live preview</p>
+        <div class="bouquet-wrap" id="bouquet-preview">
+          <div class="empty-hint">
+            <span class="big">✿</span>
+            <span class="txt" id="el-empty-hint">Your bouquet will appear here</span>
+          </div>
+        </div>
+      </div>
 
       <div class="carousel-section">
         <div class="step-label"><span class="step-num">1</span> <span id="el-step1">Choose your flowers</span></div>
@@ -256,36 +260,21 @@ body{background:#FDF5F0;color:var(--bark);font-family:var(--font-body);font-weig
         </div>
       </div>
 
-      <div class="preview-section">
-        <p class="preview-lbl" id="el-preview-lbl">live preview</p>
-        <div class="bouquet-wrap" id="bouquet-preview">
-          <div class="empty-hint">
-            <span class="big">✿</span>
-            <span class="txt" id="el-empty-hint">Your bouquet will appear here</span>
-          </div>
-        </div>
-      </div>
-
       <div class="step-label"><span class="step-num">2</span> <span id="el-step2">Customise colours</span></div>
       <div class="pickers-grid">
-        <div class="picker-group">
-          <p class="picker-title" id="el-ribbon-title">Ribbon colour</p>
+        <div class="picker-group bloom-card">
+          <p class="picker-title bloom-eyebrow" id="el-ribbon-title">Ribbon colour</p>
           <div class="swatches" id="ribbon-swatches"></div>
         </div>
-        <div class="picker-group">
-          <p class="picker-title" id="el-wrap-title">Wrapping paper</p>
+        <div class="picker-group bloom-card">
+          <p class="picker-title bloom-eyebrow" id="el-wrap-title">Wrapping paper</p>
           <div class="swatches" id="envelope-swatches"></div>
         </div>
       </div>
 
-      <div class="step-label"><span class="step-num">3</span> <span id="el-step3">Finalise &amp; send</span></div>
-      <div class="date-row">
-        <span>📅</span>
-        <span><span id="el-today-lbl">Today is</span> <strong id="today-date"></strong></span>
-      </div>
       <div class="action-stack">
-        <button class="btn-message" id="btn-open-msg"><span>✉</span> <span id="el-btn-msg-txt">Write a cute message</span></button>
-        <button class="btn-create" id="btn-create" disabled><span>✿</span> <span id="el-btn-create-txt">Create my bouquet</span></button>
+        <button class="btn-message bloom-btn bloom-btn--outline bloom-btn--lg" id="btn-open-msg"><span>✉</span> <span id="el-btn-msg-txt">Write a cute message</span></button>
+        <button class="btn-create bloom-btn bloom-btn--dark bloom-btn--lg" id="btn-create" disabled><span>✿</span> <span id="el-btn-create-txt">Create my bouquet</span></button>
         <p class="create-hint" id="create-hint">Select at least 5 flowers to create your bouquet</p>
       </div>
     </div>
@@ -300,24 +289,24 @@ body{background:#FDF5F0;color:var(--bark);font-family:var(--font-body);font-weig
     <p class="sheet-sub" id="el-sheet-sub">Optional — your note will appear on the bouquet card</p>
 
     <div class="fields-2">
-      <div class="field">
-        <label for="input-to" id="el-lbl-to">To</label>
-        <input id="input-to" type="text" placeholder="Recipient's name" maxlength="40">
+      <div class="field bloom-field">
+        <label class="bloom-label" for="input-to" id="el-lbl-to">To</label>
+        <input class="bloom-input" id="input-to" type="text" placeholder="Recipient's name" maxlength="40">
       </div>
-      <div class="field">
-        <label for="input-from" id="el-lbl-from">From</label>
-        <input id="input-from" type="text" placeholder="Your name" maxlength="40">
+      <div class="field bloom-field">
+        <label class="bloom-label" for="input-from" id="el-lbl-from">From</label>
+        <input class="bloom-input" id="input-from" type="text" placeholder="Your name" maxlength="40">
       </div>
     </div>
 
-    <div class="field">
-      <label for="input-msg" id="el-lbl-msg">Message</label>
-      <textarea id="input-msg" placeholder="Write something sweet… ♡" maxlength="140"></textarea>
+    <div class="field bloom-field">
+      <label class="bloom-label" for="input-msg" id="el-lbl-msg">Message</label>
+      <textarea class="bloom-textarea" id="input-msg" placeholder="Write something sweet… ♡" maxlength="140"></textarea>
       <div class="char-bar" id="char-bar">0 / 140</div>
     </div>
 
-    <div class="field">
-      <label id="el-lbl-font">Message font</label>
+    <div class="field bloom-field">
+      <label class="bloom-label" id="el-lbl-font">Message font</label>
       <div class="font-pick" id="font-pick">
         <div class="font-opt sel" data-font="serif">
           <div class="font-opt-preview" style="font-family:'Cormorant Garamond',serif;font-style:italic">Aa</div>
@@ -334,7 +323,7 @@ body{background:#FDF5F0;color:var(--bark);font-family:var(--font-body);font-weig
       </div>
     </div>
 
-    <button class="btn-sheet-save" id="btn-save-msg">Save message ✓</button>
+    <button class="btn-sheet-save bloom-btn bloom-btn--primary bloom-btn--lg" id="btn-save-msg">Save message ✓</button>
   </div>
 </div>
 

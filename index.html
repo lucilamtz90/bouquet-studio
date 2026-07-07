@@ -235,32 +235,30 @@ body{background:#F7F3E8;color:var(--bark);font-family:var(--font-body);font-weig
   display:none;
   min-height:100vh;position:relative;
   background:#F7F3E8;
-  flex-direction:column;align-items:center;padding:44px 20px 80px
+  flex-direction:column;align-items:center;padding:28px 20px 80px
 }
 @keyframes resultFadeIn{from{opacity:0}to{opacity:1}}
 #screen-result.active{display:flex;animation:resultFadeIn 0.4s var(--ease-petal) both}
-.result-top{text-align:center;margin-bottom:28px;position:relative;z-index:1}
-.result-top h2{font-family:var(--font-display);font-size:34px;font-weight:600;font-style:normal;color:#2C2D1E}
-.result-top p{font-size:12px;color:rgba(44,45,30,0.6);margin-top:5px}
+.result-top{text-align:center;margin-bottom:16px;position:relative;z-index:1}
 .ticket-wrap{position:relative;z-index:1;width:100%;max-width:360px;margin:0 auto;filter:drop-shadow(0 16px 48px rgba(0,0,0,0.18))}
 .ticket{background-image:url('images/ticket-bg.png');background-size:100% 100%;background-repeat:no-repeat;overflow:visible;position:relative}
 .ticket-body{padding:34px 26px 20px}
 .receipt-brand{text-align:center;margin-bottom:12px}
 .receipt-logo{height:34px;width:auto;display:block;margin:0 auto}
 .eyebrow-logo{height:18px;width:auto;vertical-align:middle}
-.receipt-sub{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:0.14em}
+.receipt-sub{font-family:var(--font-mono);font-size:14px;color:var(--muted);letter-spacing:0.1em}
 .r-divider{border:none;border-top:1px dashed rgba(44,45,30,0.2);margin:10px 0}
-.r-row{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-mono);font-size:11px;color:var(--bark);line-height:2}
+.r-row{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-mono);font-size:14px;color:var(--bark);line-height:2}
 .r-row .lbl{color:var(--muted)}
 .receipt-bouquet{display:flex;justify-content:center;align-items:center;padding:6px 0;position:relative;opacity:0;transform:scale(0.9);transition:opacity 0.9s var(--ease-petal),transform 0.9s var(--ease-petal)}
 .receipt-bouquet.visible{opacity:1;transform:scale(1)}
 .receipt-msg{text-align:center;padding:6px 4px}
-.receipt-msg-text{color:var(--bark);line-height:1.65}
-.font-serif{font-family:var(--font-display);font-size:14px;font-style:italic}
+.receipt-msg-text{color:var(--bark);line-height:1.65;font-size:16px}
+.font-serif{font-family:var(--font-display);font-size:16px;font-style:italic}
 .font-script{font-family:var(--font-script);font-size:16px}
-.font-mono{font-family:var(--font-mono);font-size:11px}
+.font-mono{font-family:var(--font-mono);font-size:16px}
 .r-total-row{display:flex;justify-content:space-between;align-items:flex-end}
-.r-total-lbl{font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;color:var(--muted)}
+.r-total-lbl{font-family:var(--font-mono);font-size:14px;letter-spacing:0.1em;color:var(--muted)}
 .r-total-val{font-family:var(--font-mono);font-size:20px;font-weight:700;color:var(--bark)}
 .result-actions{display:flex;gap:10px;margin-top:36px;width:100%;max-width:360px;flex-wrap:wrap;position:relative;z-index:1}
 .btn-act{flex:1;min-width:120px;padding:14px 18px;border-radius:var(--radius-pill);font-family:var(--font-body);font-size:12px;font-weight:300;letter-spacing:0.07em;cursor:pointer;transition:transform 0.18s var(--ease-petal),box-shadow 0.2s;border:none;display:flex;align-items:center;justify-content:center;gap:7px}
@@ -310,7 +308,7 @@ body{background:#F7F3E8;color:var(--bark);font-family:var(--font-body);font-weig
     <div class="builder-wrap">
       <p class="bloom-eyebrow" style="text-align:center;margin-bottom:6px" id="el-eyebrow">✿ bloom studio ✿</p>
       <h1 class="bloom-hero" style="text-align:center;font-size:clamp(34px,8vw,54px);margin-bottom:8px" id="el-page-title">Send a <em>bouquet</em> now</h1>
-      <p class="page-sub" id="el-page-sub">Choose your flowers,<br>add a heartfelt note, and download your bouquet.</p>
+      <p class="page-sub" id="el-page-sub">Choose your flowers,<br>add a heartfelt note, create it and share it.</p>
 
 
       <div class="preview-section">
@@ -400,8 +398,7 @@ body{background:#F7F3E8;color:var(--bark);font-family:var(--font-body);font-weig
     <div class="orb orb-ticket-3"></div>
   </div>
   <div class="result-top">
-    <h2 id="el-result-title">Your bouquet is ready ✿</h2>
-    <p id="el-result-sub">Save it or share it — make someone's day brighter</p>
+    <h1 class="bloom-hero" style="text-align:center;font-size:clamp(34px,8vw,54px);margin-bottom:0" id="el-result-title">Your bouquet is ready ✿</h1>
   </div>
 
   <div class="ticket-wrap" id="ticket-wrap">
@@ -429,7 +426,7 @@ const TRANSLATIONS = {
     pageTitle:'Send a Bouquet Now',
     eyebrow:'<img src="images/logo-bloom-studio.png" alt="Bloom Studio" class="eyebrow-logo">',
     heroHTML:'Send a <em>bouquet</em> now',
-    heroSub:'Choose your flowers,<br>add a heartfelt note, and download your bouquet.',
+    heroSub:'Choose your flowers,<br>add a heartfelt note, create it and share it.',
     step1:'Choose your flowers', step2:'Customise colours', step3:'Finalise &amp; send',
     countHint:'Select up to 10 flowers for your bouquet',
     previewLbl:'live preview', emptyHint:'Your bouquet will appear here',
@@ -447,7 +444,6 @@ wrapTitle:'Wrapping paper',
     fontElegant:'Elegant', fontScript:'Script', fontTypewriter:'Typewriter',
     btnSaveMsg:'Save message',
     resultTitle:'Your bouquet is ready ✿',
-    resultSub:'Download it — make someone\'s day brighter',
     receiptSub:'virtual flower atelier',
     rowFor:'FOR', rowFrom:'FROM', rowDate:'DATE', rowType:'BOUQUET TYPE',
     btnSave:'Download bouquet', btnNew:'Create another bouquet',
@@ -474,7 +470,7 @@ envelopeNames:['parchment','blush','sage mist','lavender','sky','cream'],
     pageTitle:'Enviar un Ramo Ahora',
     eyebrow:'<img src="images/logo-bloom-studio.png" alt="Bloom Studio" class="eyebrow-logo">',
     heroHTML:'Envía un <em>ramo</em> ahora',
-    heroSub:'Elige tus flores,<br>agrega una dedicatoria y guarda tu ramo.',
+    heroSub:'Elige tus flores,<br>agrega una dedicatoria, créalo y compártelo.',
     step1:'Elige tus flores', step2:'Personaliza los colores', step3:'Finaliza y envía',
     countHint:'Elige hasta 10 flores para tu ramo',
     previewLbl:'vista previa', emptyHint:'Tu ramo aparecerá aquí',
@@ -492,7 +488,6 @@ wrapTitle:'Papel de envoltura',
     fontElegant:'Elegante', fontScript:'Cursiva', fontTypewriter:'Máquina de escribir',
     btnSaveMsg:'Guardar mensaje',
     resultTitle:'Tu ramo está listo ✿',
-    resultSub:'Descárgalo — alegra el día de alguien',
     receiptSub:'atelier virtual de flores',
     rowFor:'PARA', rowFrom:'DE', rowDate:'FECHA', rowType:'TIPO DE RAMO',
     btnSave:'Descargar ramo', btnNew:'Crear otro ramo',
@@ -519,7 +514,7 @@ envelopeNames:['pergamino','rubor','neblina salvia','lavanda','cielo','crema'],
     pageTitle:'Envoyer un Bouquet Maintenant',
     eyebrow:'<img src="images/logo-bloom-studio.png" alt="Bloom Studio" class="eyebrow-logo">',
     heroHTML:'Envoie un <em>bouquet</em> maintenant',
-    heroSub:'Choisis tes fleurs,<br>ajoute une dédicace et télécharge ton bouquet.',
+    heroSub:'Choisis tes fleurs,<br>ajoute une dédicace, crée-le et partage-le.',
     step1:'Choisis tes fleurs', step2:'Personnalise les couleurs', step3:'Finalise et envoie',
     countHint:'Choisis jusqu’à 10 fleurs pour ton bouquet',
     previewLbl:'aperçu en direct', emptyHint:'Ton bouquet apparaîtra ici',
@@ -537,7 +532,6 @@ wrapTitle:"Papier d'emballage",
     fontElegant:'Élégant', fontScript:'Manuscrit', fontTypewriter:'Machine à écrire',
     btnSaveMsg:'Sauvegarder le message',
     resultTitle:'Ton bouquet est prêt ✿',
-    resultSub:"Télécharge-le — illumine la journée de quelqu'un",
     receiptSub:'atelier floral virtuel',
     rowFor:'POUR', rowFrom:'DE', rowDate:'DATE', rowType:'TYPE DE BOUQUET',
     btnSave:'Télécharger le bouquet', btnNew:'Créer un autre bouquet',
@@ -564,7 +558,7 @@ envelopeNames:['parchemin','blush','brume sauge','lavande','ciel','crème'],
     pageTitle:'Enviar um Buquê Agora',
     eyebrow:'<img src="images/logo-bloom-studio.png" alt="Bloom Studio" class="eyebrow-logo">',
     heroHTML:'Envie um <em>buquê</em> agora',
-    heroSub:'Escolha suas flores,<br>adicione uma dedicatória e baixe seu buquê.',
+    heroSub:'Escolha suas flores,<br>adicione uma dedicatória, crie-o e compartilhe-o.',
     step1:'Escolha suas flores', step2:'Personalize as cores', step3:'Finalize e envie',
     countHint:'Escolha até 10 flores para o seu buquê',
     previewLbl:'pré-visualização', emptyHint:'Seu buquê aparecerá aqui',
@@ -582,7 +576,6 @@ wrapTitle:'Papel de embrulho',
     fontElegant:'Elegante', fontScript:'Manuscrito', fontTypewriter:'Máquina de escrever',
     btnSaveMsg:'Salvar mensagem',
     resultTitle:'Seu buquê está pronto ✿',
-    resultSub:'Baixe-o — alegre o dia de alguém',
     receiptSub:'ateliê virtual de flores',
     rowFor:'PARA', rowFrom:'DE', rowDate:'DATA', rowType:'TIPO DE BUQUÊ',
     btnSave:'Baixar buquê', btnNew:'Criar outro buquê',
@@ -609,7 +602,7 @@ envelopeNames:['pergaminho','blush','neblina sálvia','lavanda','céu','creme'],
     pageTitle:'Jetzt einen Blumenstrauß senden',
     eyebrow:'<img src="images/logo-bloom-studio.png" alt="Bloom Studio" class="eyebrow-logo">',
     heroHTML:'Sende jetzt einen <em>Blumenstrauß</em>',
-    heroSub:'Wähle deine Blumen,<br>füge eine Widmung hinzu und lade deinen Strauß herunter.',
+    heroSub:'Wähle deine Blumen,<br>füge eine Widmung hinzu, erstelle ihn und teile ihn.',
     step1:'Wähle deine Blumen', step2:'Farben anpassen', step3:'Fertigstellen &amp; Senden',
     countHint:'Wähle bis zu 10 Blumen für deinen Strauß',
     previewLbl:'Live-Vorschau', emptyHint:'Dein Strauß erscheint hier',
@@ -627,7 +620,6 @@ wrapTitle:'Geschenkpapier',
     fontElegant:'Elegant', fontScript:'Schreibschrift', fontTypewriter:'Schreibmaschine',
     btnSaveMsg:'Nachricht speichern',
     resultTitle:'Dein Strauß ist fertig ✿',
-    resultSub:'Lade ihn herunter — erhelle jemandes Tag',
     receiptSub:'virtuelles Blumenatelier',
     rowFor:'FÜR', rowFrom:'VON', rowDate:'DATUM', rowType:'STRAUSSTYP',
     btnSave:'Strauß herunterladen', btnNew:'Weiteren Strauß erstellen',
@@ -654,7 +646,7 @@ envelopeNames:['Pergament','Erröten','Salbeinebel','Lavendel','Himmel','Creme']
     pageTitle:'Invia un Bouquet Ora',
     eyebrow:'<img src="images/logo-bloom-studio.png" alt="Bloom Studio" class="eyebrow-logo">',
     heroHTML:'Invia un <em>bouquet</em> ora',
-    heroSub:'Scegli i tuoi fiori,<br>aggiungi una dedica e scarica il tuo bouquet.',
+    heroSub:'Scegli i tuoi fiori,<br>aggiungi una dedica, crealo e condividilo.',
     step1:'Scegli i tuoi fiori', step2:'Personalizza i colori', step3:'Finalizza e invia',
     countHint:'Scegli fino a 10 fiori per il tuo bouquet',
     previewLbl:'anteprima dal vivo', emptyHint:'Il tuo bouquet apparirà qui',
@@ -672,7 +664,6 @@ wrapTitle:'Carta da regalo',
     fontElegant:'Elegante', fontScript:'Corsivo', fontTypewriter:'Macchina da scrivere',
     btnSaveMsg:'Salva messaggio',
     resultTitle:'Il tuo bouquet è pronto ✿',
-    resultSub:'Scaricalo — rallegra la giornata di qualcuno',
     receiptSub:'atelier floreale virtuale',
     rowFor:'PER', rowFrom:'DA', rowDate:'DATA', rowType:'TIPO DI BOUQUET',
     btnSave:'Scarica il bouquet', btnNew:'Crea un altro bouquet',
@@ -699,7 +690,7 @@ envelopeNames:['pergamena','cipria','nebbia salvia','lavanda','cielo','crema'],
     pageTitle:'花束を送ろう',
     eyebrow:'<img src="images/logo-bloom-studio.png" alt="Bloom Studio" class="eyebrow-logo">',
     heroHTML:'<em>花束</em>を送ろう',
-    heroSub:'お花を選んで、<br>メッセージを添えて、花束をダウンロードしましょう。',
+    heroSub:'お花を選んで、<br>メッセージを添えて、作ってシェアしよう。',
     step1:'お花を選ぶ', step2:'カラーをカスタマイズ', step3:'完成して送る',
     countHint:'花束に最大10種類まで花を選んでください',
     previewLbl:'ライブプレビュー', emptyHint:'ここに花束が表示されます',
@@ -717,7 +708,6 @@ wrapTitle:'ラッピングペーパー',
     fontElegant:'エレガント', fontScript:'手書き風', fontTypewriter:'タイプライター',
     btnSaveMsg:'メッセージを保存',
     resultTitle:'花束の完成 ✿',
-    resultSub:'ダウンロードして、誰かの一日を明るくしよう',
     receiptSub:'バーチャルフラワーアトリエ',
     rowFor:'宛先', rowFrom:'送り主', rowDate:'日付', rowType:'花束の種類',
     btnSave:'花束をダウンロード', btnNew:'別の花束を作る',
@@ -744,7 +734,7 @@ envelopeNames:['パーチメント','ブラッシュ','セージミスト','ラ�
     pageTitle:'立刻送出花束',
     eyebrow:'<img src="images/logo-bloom-studio.png" alt="Bloom Studio" class="eyebrow-logo">',
     heroHTML:'立刻送出<em>花束</em>',
-    heroSub:'挑选你的花朵，<br>添加一句祝福语，然后下载你的花束。',
+    heroSub:'挑选你的花朵，<br>添加一句祝福语，创建并分享它。',
     step1:'挑选你的花朵', step2:'定制颜色', step3:'完成并发送',
     countHint:'为你的花束选择最多10种花',
     previewLbl:'实时预览', emptyHint:'你的花束将在这里显示',
@@ -762,7 +752,6 @@ wrapTitle:'包装纸',
     fontElegant:'优雅', fontScript:'手写体', fontTypewriter:'打字机',
     btnSaveMsg:'保存留言',
     resultTitle:'你的花束准备好了 ✿',
-    resultSub:'下载它 — 让某人的一天更美好',
     receiptSub:'虚拟花艺工坊',
     rowFor:'收件人', rowFrom:'发件人', rowDate:'日期', rowType:'花束类型',
     btnSave:'下载花束', btnNew:'创建另一束花',
@@ -789,7 +778,7 @@ envelopeNames:['羊皮纸','腮红','鼠尾草雾','薰衣草','天空','奶油'
     pageTitle:'지금 꽃다발 보내기',
     eyebrow:'<img src="images/logo-bloom-studio.png" alt="Bloom Studio" class="eyebrow-logo">',
     heroHTML:'지금 <em>꽃다발</em>을 보내세요',
-    heroSub:'꽃을 고르고,<br>메시지를 더하고, 꽃다발을 다운로드하세요.',
+    heroSub:'꽃을 고르고,<br>메시지를 더하고, 만들어서 공유하세요.',
     step1:'꽃 선택하기', step2:'색상 커스터마이즈', step3:'완성하고 보내기',
     countHint:'꽃다발에 최대 10가지 꽃을 선택하세요',
     previewLbl:'실시간 미리보기', emptyHint:'꽃다발이 여기 표시됩니다',
@@ -807,7 +796,6 @@ wrapTitle:'포장지',
     fontElegant:'우아한', fontScript:'손글씨', fontTypewriter:'타자기',
     btnSaveMsg:'메시지 저장',
     resultTitle:'꽃다발이 완성됐어요 ✿',
-    resultSub:'다운로드하세요 — 누군가의 하루를 밝게 만들어요',
     receiptSub:'가상 플라워 아뜰리에',
     rowFor:'받는 분', rowFrom:'보내는 분', rowDate:'날짜', rowType:'꽃다발 종류',
     btnSave:'꽃다발 다운로드', btnNew:'새 꽃다발 만들기',
@@ -835,7 +823,7 @@ envelopeNames:['양피지','블러쉬','세이지 미스트','라벤더','스카
     pageTitle:'أرسلي باقة زهور الآن',
     eyebrow:'<img src="images/logo-bloom-studio.png" alt="Bloom Studio" class="eyebrow-logo">',
     heroHTML:'أرسلي <em>باقة زهور</em> الآن',
-    heroSub:'اختاري زهورك،<br>أضيفي إهداءً، وحمّلي باقتك.',
+    heroSub:'اختاري زهورك،<br>أضيفي إهداءً، أنشئيها وشاركيها.',
     step1:'اختاري زهورك', step2:'خصّصي الألوان', step3:'أتمّي وأرسلي',
     countHint:'اختاري حتى 10 زهور لباقتك',
     previewLbl:'معاينة مباشرة', emptyHint:'ستظهر باقتك هنا',
@@ -853,7 +841,6 @@ wrapTitle:'ورق التغليف',
     fontElegant:'أنيق', fontScript:'خط يدوي', fontTypewriter:'آلة كاتبة',
     btnSaveMsg:'حفظ الرسالة',
     resultTitle:'باقتك جاهزة ✿',
-    resultSub:'حمّليها — أضيفي البهجة ليوم أحد ما',
     receiptSub:'أتيليه زهور افتراضي',
     rowFor:'إلى', rowFrom:'من', rowDate:'التاريخ', rowType:'نوع الباقة',
     btnSave:'تحميل الباقة', btnNew:'إنشاء باقة أخرى',
@@ -925,7 +912,6 @@ function applyTranslations() {
   s('el-font-typewriter', t.fontTypewriter);
   s('btn-save-msg', t.btnSaveMsg);
   s('el-result-title', t.resultTitle);
-  s('el-result-sub', t.resultSub);
   s('el-btn-save', t.btnSave);
   s('el-btn-new', t.btnNew);
 
@@ -1206,7 +1192,7 @@ function buildResult() {
     <div class="r-total-row">
       <div>
         <div class="r-total-lbl">${T.rowType}</div>
-        <div class="r-total-lbl" style="font-size:11px;color:var(--bark);margin-top:2px">${state.selected.map(id=>T.flowers[id]?.name||'').join(', ')}</div>
+        <div class="r-total-lbl" style="font-size:14px;color:var(--bark);margin-top:2px">${state.selected.map(id=>T.flowers[id]?.name||'').join(', ')}</div>
       </div>
       <div class="r-total-val">♡</div>
     </div>`;

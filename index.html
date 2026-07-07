@@ -18,7 +18,11 @@
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:#F7F3E8;color:var(--bark);font-family:var(--font-body);font-weight:300;min-height:100vh;overflow-x:hidden}
+/* Fraunces is a variable font — Figma's kit dials in "WONK" 1 (its characterful,
+   slightly irregular letterforms) on every Fraunces text style. Setting it here
+   lets it inherit everywhere Fraunces is used; unsupported axes on the other
+   fonts (Schibsted Grotesk, Courier Prime, Dancing Script) are simply ignored. */
+body{background:#F7F3E8;color:var(--bark);font-family:var(--font-body);font-weight:300;min-height:100vh;overflow-x:hidden;font-variation-settings:"SOFT" 0,"WONK" 1}
 
 .screen{display:none;min-height:100vh}
 .screen.active{display:block}
@@ -1313,7 +1317,7 @@ function sparkleAt(el) {
     const s = document.createElement('div');
     s.className = 'sparkle';
     s.textContent = sym;
-    s.style.cssText = `left:${r.left+r.width*Math.random()}px;top:${r.top+r.height*Math.random()}px;animation-delay:${i*0.08}s;color:${['#E2B8C8','#E086AA','#C8D44A','#F5D068','#C9B1D9'][i]}`;
+    s.style.cssText = `left:${r.left+r.width*Math.random()}px;top:${r.top+r.height*Math.random()}px;animation-delay:${i*0.08}s;color:${['#E2B8C8','#E086AA','#C8D44A','#7D8B3C','#445A3C'][i]}`;
     document.body.appendChild(s);
     setTimeout(() => s.remove(), 1600);
   });

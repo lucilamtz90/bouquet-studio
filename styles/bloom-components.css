@@ -17,6 +17,9 @@ body {
   font-size: var(--text-body);
   line-height: var(--leading-normal);
   -webkit-font-smoothing: antialiased;
+  /* Fraunces' "WONK" axis (its characterful Figma look) inherits from here to
+     every heading; other fonts simply ignore the unsupported axis. */
+  font-variation-settings: "SOFT" 0, "WONK" 1;
 }
 
 /* ─────────────────────────────────────────
@@ -32,7 +35,7 @@ body {
 }
 .bloom-hero em {
   font-style: normal;
-  color: var(--color-mauve);
+  color: var(--color-bark);
 }
 
 .bloom-h1 {

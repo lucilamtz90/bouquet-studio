@@ -4,7 +4,10 @@
    Usage: @import './bloom-tokens.css';
 ═══════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Schibsted+Grotesk:wght@400;500;600;700&family=Courier+Prime&display=swap');
+/* Fraunces' SOFT/WONK axes must be requested explicitly in the URL — Google Fonts
+   otherwise serves a static instance with them pinned at their defaults (WONK 0),
+   silently ignoring any font-variation-settings CSS asking for WONK 1. */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,SOFT,WONK,wght@0,9..144,0..100,0..1,300..900;1,9..144,0..100,0..1,300..900&family=Schibsted+Grotesk:wght@400;500;600;700&family=Courier+Prime&display=swap');
 
 :root {
   /* ── Colors — from Bloom Studio Figma palette ── */
@@ -13,10 +16,12 @@
   --color-rose:        #E2B8C8;   /* Charm Pink — primary / buttons */
   --color-mauve:       #E086AA;   /* Phalaenopsis — accent / hover */
   --color-sage:        #C8D44A;   /* Citronelle — nature accent / tags */
-  --color-stone:       #B6B4A7;   /* neutral derived from Ink+Cream — secondary text */
-  --color-bark:        #2C2D1E;   /* Ink — body text / headings */
-  --color-muted:       #878679;   /* neutral derived from Ink+Cream — placeholder / captions */
-  --color-hairline:    rgba(44, 45, 30, 0.1); /* dividers / borders */
+  --color-bark:        #2C2D1E;   /* Ink — body text / headings, the only dark text color on the site */
+  /* Secondary text isn't a separate color — it's Ink itself at reduced opacity,
+     so every dark tone on the site traces back to the one Figma Ink swatch. */
+  --color-stone:       rgba(44, 45, 30, 0.42);  /* Ink — secondary text */
+  --color-muted:       rgba(44, 45, 30, 0.58);  /* Ink — placeholder / captions */
+  --color-hairline:    rgba(44, 45, 30, 0.1);   /* Ink — dividers / borders */
   --color-error:       #C47A7A;   /* error states */
   --color-olive:       #7D8B3C;   /* Camping Gear — success states / green accent */
   --color-forest:      #445A3C;   /* Dark Green — deep green accent */

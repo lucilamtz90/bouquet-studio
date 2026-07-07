@@ -1177,15 +1177,10 @@ function initModal() {
 /* ════════════════
    RESULT SCREEN
 ════════════════ */
-// Multiple of the same species can be added, so group them ("Sunflower ×3")
-// instead of listing the same name repeatedly.
+// Multiple of the same species can be added — list each species name once,
+// no counts.
 function flowerSummary() {
-  const counts = new Map();
-  state.selected.forEach(id => counts.set(id, (counts.get(id)||0)+1));
-  return [...counts].map(([id,n]) => {
-    const name = T.flowers[id]?.name || '';
-    return n > 1 ? `${name} ×${n}` : name;
-  }).join(', ');
+  return [...new Set(state.selected)].map(id => T.flowers[id]?.name || '').join(', ');
 }
 
 function buildResult() {

@@ -252,7 +252,7 @@ body{background:#F7F3E8;color:var(--bark);font-family:var(--font-body);font-weig
 .ticket{background-image:url('images/ticket-bg.png');background-size:100% 100%;background-repeat:no-repeat;overflow:visible;position:relative}
 .ticket-body{padding:34px 26px 20px}
 .receipt-brand{text-align:center;margin-bottom:12px}
-.receipt-logo{height:34px;width:auto;display:block;margin:0 auto}
+.receipt-logo{height:18px;width:auto;display:block;margin:0 auto}
 .eyebrow-logo{height:18px;width:auto;vertical-align:middle}
 .receipt-sub{font-family:var(--font-mono);font-size:14px;color:var(--muted);letter-spacing:0.1em}
 .r-divider{border:none;border-top:1px dashed rgba(44,45,30,0.2);margin:10px 0}
@@ -947,7 +947,7 @@ const state = {
 ════════════════ */
 function renderBouquet(selectedIds, envelopeColor, small=false) {
   if (!selectedIds.length) return null;
-  const scale = small ? 0.68 : 1;
+  const scale = small ? 0.92 : 1;
   const W = Math.round(260*scale), H = Math.round(300*scale);
   const cx = W/2;
   const envW = Math.round(H * 2239/3794), envLeft = Math.round((W - envW)/2);

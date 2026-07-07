@@ -36,9 +36,18 @@
   --text-label:   11px;
   --text-mono:    13px;
 
-  /* ── Font weights ── */
-  --weight-light:   300;
-  --weight-regular: 400;
+  /* ── Font weights ──
+     Matches the exact registered text styles pulled from Figma (not just the
+     annotation labels, which had drifted from the actual applied styles in a
+     couple of spots): Heading/Display=Bold, Heading/H2=SemiBold,
+     Heading/H3=Regular, Body/Caption=Medium, Body=Regular, UI/Button=SemiBold,
+     UI/Label=ExtraBold. */
+  --weight-light:     300;
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-extrabold: 800;
 
   /* ── Line heights ── */
   --leading-tight:  1.1;

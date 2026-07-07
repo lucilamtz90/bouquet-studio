@@ -25,20 +25,20 @@ body {
 .bloom-hero {
   font-family: var(--font-display);
   font-size: var(--text-hero);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
   color: var(--color-bark);
 }
 .bloom-hero em {
-  font-style: italic;
+  font-style: normal;
   color: var(--color-mauve);
 }
 
 .bloom-h1 {
   font-family: var(--font-display);
   font-size: var(--text-h1);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-regular);
   line-height: var(--leading-snug);
   color: var(--color-bark);
 }
@@ -46,14 +46,14 @@ body {
 .bloom-h2 {
   font-family: var(--font-display);
   font-size: var(--text-h2);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-semibold);
   color: var(--color-bark);
 }
 
 .bloom-eyebrow {
   font-family: var(--font-body);
   font-size: var(--text-xs);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-extrabold);
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
   color: var(--color-stone);
@@ -62,7 +62,7 @@ body {
 .bloom-body {
   font-family: var(--font-body);
   font-size: var(--text-body);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-regular);
   line-height: var(--leading-loose);
   color: var(--color-bark);
 }
@@ -70,7 +70,7 @@ body {
 .bloom-small {
   font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-medium);
   color: var(--color-muted);
 }
 
@@ -93,7 +93,7 @@ body {
   border-radius: var(--radius-pill);
   cursor: pointer;
   font-family: var(--font-body);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-wide);
   text-decoration: none;
   white-space: nowrap;
@@ -172,7 +172,7 @@ body {
 .bloom-label {
   font-family: var(--font-body);
   font-size: var(--text-xs);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-extrabold);
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
   color: var(--color-stone);

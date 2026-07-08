@@ -214,6 +214,12 @@ body{background:#F7F3E8;color:var(--bark);font-family:var(--font-body);font-weig
 .sheet-handle{width:40px;height:4px;background:var(--rose);border-radius:2px;margin:0 auto 22px}
 .sheet-title{font-family:var(--font-display);font-size:26px;font-weight:400;font-style:normal;color:var(--bark);margin-bottom:4px}
 .sheet-sub{font-size:12px;color:var(--muted);margin-bottom:24px}
+.ribbon-modal-preview{display:flex;align-items:center;justify-content:center;padding:12px 0}
+.ribbon-modal-preview img{width:190px;height:auto;display:block}
+.ribbon-color-name{text-align:center;font-family:var(--font-display);font-size:18px;color:var(--bark);margin:4px 0 18px;min-height:22px}
+#ribbon-swatches{justify-content:center;margin-bottom:6px}
+.sheet-btn-row{display:flex;gap:10px;margin-top:24px}
+.sheet-btn-row .bloom-btn{flex:1}
 .field{margin-bottom:18px}
 .field label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--stone);display:block;margin-bottom:6px}
 .field input,.field textarea{width:100%;background:#FFFFFF;border:1px solid rgba(44,45,30,0.14);font-family:var(--font-body);font-size:16px;font-weight:300;color:var(--bark);outline:none;transition:border-color 0.2s,box-shadow 0.2s}
@@ -342,6 +348,7 @@ body{background:#F7F3E8;color:var(--bark);font-family:var(--font-body);font-weig
       </div>
 
       <div class="action-stack">
+        <button class="btn-message bloom-btn bloom-btn--outline bloom-btn--lg" id="btn-open-ribbon"><span id="el-btn-ribbon-txt">Choose ribbon color</span></button>
         <button class="btn-message bloom-btn bloom-btn--outline bloom-btn--lg" id="btn-open-msg"><span id="el-btn-msg-txt">Write a cute message</span></button>
         <button class="btn-create bloom-btn bloom-btn--dark bloom-btn--lg" id="btn-create" disabled><span id="el-btn-create-txt">Create my bouquet</span></button>
       </div>
@@ -397,6 +404,26 @@ body{background:#F7F3E8;color:var(--bark);font-family:var(--font-body);font-weig
   </div>
 </div>
 
+<div id="modal-ribbon" class="overlay" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h2 class="sheet-title" style="text-align:center" id="el-ribbon-sheet-title">Choose your ribbon color</h2>
+    <p class="sheet-sub" style="text-align:center" id="el-ribbon-sheet-sub">Optional — pick a color for your bow</p>
+
+    <div class="ribbon-modal-preview">
+      <img id="ribbon-modal-img" src="images/ribbon.png" alt="">
+    </div>
+    <p class="ribbon-color-name" id="el-ribbon-color-name">&nbsp;</p>
+
+    <div class="swatches" id="ribbon-swatches"></div>
+
+    <div class="sheet-btn-row">
+      <button type="button" class="bloom-btn bloom-btn--outline bloom-btn--lg" id="btn-ribbon-dismiss"><span id="el-btn-ribbon-dismiss">Dismiss</span></button>
+      <button type="button" class="bloom-btn bloom-btn--primary bloom-btn--lg" id="btn-ribbon-apply"><span id="el-btn-ribbon-apply">Apply color</span></button>
+    </div>
+  </div>
+</div>
+
 <!-- SCREEN 2: RESULT -->
 <div id="screen-result" class="screen">
   <div class="gradient-orbs" id="ticket-gradient" aria-hidden="true">
@@ -440,6 +467,11 @@ const TRANSLATIONS = {
 wrapTitle:'Wrapping paper',
     todayLbl:'Today is',
     btnMsgTxt:'Write a cute message', btnMsgAdded:'Message added',
+    btnRibbonTxt:'Choose ribbon color', btnRibbonSet:'Ribbon color set',
+    ribbonSheetTitle:'Choose your ribbon color',
+    ribbonSheetSub:'Optional — pick a color for your bow',
+    btnRibbonApply:'Apply color', btnRibbonDismiss:'Dismiss',
+    toastRibbonApplied:'Ribbon color applied ✓',
     btnCreateTxt:'Create my bouquet',
     sheetTitle:'Write a cute message ✉',
     sheetSub:'Your note will appear on the bouquet card',
@@ -468,6 +500,7 @@ wrapTitle:'Wrapping paper',
       anemone:{name:'Anemone',mood:'anticipation'},
       'baby-hair':{name:'Baby Hair',mood:'calm & wonder'},
     },
+ribbonColorNames:['Rose','Mauve','Sage','Sky Blue','Butter','Marigold'],
 envelopeNames:['parchment','blush','sage mist','lavender','sky','cream'],
   },
   es: {
@@ -481,6 +514,11 @@ envelopeNames:['parchment','blush','sage mist','lavender','sky','cream'],
 wrapTitle:'Papel de envoltura',
     todayLbl:'Hoy es',
     btnMsgTxt:'Escribe un mensaje bonito', btnMsgAdded:'Mensaje añadido',
+    btnRibbonTxt:'Elegir color del lazo', btnRibbonSet:'Color del lazo elegido',
+    ribbonSheetTitle:'Elige el color de tu lazo',
+    ribbonSheetSub:'Opcional — elige un color para tu moño',
+    btnRibbonApply:'Aplicar color', btnRibbonDismiss:'Descartar',
+    toastRibbonApplied:'Color del lazo aplicado ✓',
     btnCreateTxt:'Crear mi ramo',
     sheetTitle:'Escribe un mensaje bonito ✉',
     sheetSub:'Tu nota aparecerá en la tarjeta del ramo',
@@ -509,6 +547,7 @@ wrapTitle:'Papel de envoltura',
       anemone:{name:'Anémona',mood:'anticipación'},
       'baby-hair':{name:'Baby Hair',mood:'calma y asombro'},
     },
+ribbonColorNames:['Rosa','Malva','Salvia','Celeste','Mantequilla','Caléndula'],
 envelopeNames:['pergamino','rubor','neblina salvia','lavanda','cielo','crema'],
   },
   fr: {
@@ -522,6 +561,11 @@ envelopeNames:['pergamino','rubor','neblina salvia','lavanda','cielo','crema'],
 wrapTitle:"Papier d'emballage",
     todayLbl:"Aujourd'hui c'est le",
     btnMsgTxt:'Écrire un joli message', btnMsgAdded:'Message ajouté',
+    btnRibbonTxt:'Choisir la couleur du ruban', btnRibbonSet:'Couleur du ruban choisie',
+    ribbonSheetTitle:'Choisis la couleur de ton ruban',
+    ribbonSheetSub:'Optionnel — choisis une couleur pour ton nœud',
+    btnRibbonApply:'Appliquer la couleur', btnRibbonDismiss:'Annuler',
+    toastRibbonApplied:'Couleur du ruban appliquée ✓',
     btnCreateTxt:'Créer mon bouquet',
     sheetTitle:'Écrire un joli message ✉',
     sheetSub:'Ta note apparaîtra sur la carte du bouquet',
@@ -550,6 +594,7 @@ wrapTitle:"Papier d'emballage",
       anemone:{name:'Anémone',mood:'anticipation'},
       'baby-hair':{name:'Baby Hair',mood:'calme et émerveillement'},
     },
+ribbonColorNames:['Rose','Mauve','Sauge','Bleu ciel','Beurre','Souci'],
 envelopeNames:['parchemin','blush','brume sauge','lavande','ciel','crème'],
   },
   pt: {
@@ -563,6 +608,11 @@ envelopeNames:['parchemin','blush','brume sauge','lavande','ciel','crème'],
 wrapTitle:'Papel de embrulho',
     todayLbl:'Hoje é',
     btnMsgTxt:'Escrever uma mensagem fofa', btnMsgAdded:'Mensagem adicionada',
+    btnRibbonTxt:'Escolher cor da fita', btnRibbonSet:'Cor da fita escolhida',
+    ribbonSheetTitle:'Escolha a cor da sua fita',
+    ribbonSheetSub:'Opcional — escolha uma cor para o seu laço',
+    btnRibbonApply:'Aplicar cor', btnRibbonDismiss:'Descartar',
+    toastRibbonApplied:'Cor da fita aplicada ✓',
     btnCreateTxt:'Criar meu buquê',
     sheetTitle:'Escrever uma mensagem fofa ✉',
     sheetSub:'Sua nota aparecerá no cartão do buquê',
@@ -591,6 +641,7 @@ wrapTitle:'Papel de embrulho',
       anemone:{name:'Anêmona',mood:'antecipação'},
       'baby-hair':{name:'Baby Hair',mood:'calma e maravilha'},
     },
+ribbonColorNames:['Rosa','Malva','Sálvia','Azul-celeste','Manteiga','Calêndula'],
 envelopeNames:['pergaminho','blush','neblina sálvia','lavanda','céu','creme'],
   },
   de: {
@@ -604,6 +655,11 @@ envelopeNames:['pergaminho','blush','neblina sálvia','lavanda','céu','creme'],
 wrapTitle:'Geschenkpapier',
     todayLbl:'Heute ist der',
     btnMsgTxt:'Eine süße Nachricht schreiben', btnMsgAdded:'Nachricht hinzugefügt',
+    btnRibbonTxt:'Bandfarbe wählen', btnRibbonSet:'Bandfarbe festgelegt',
+    ribbonSheetTitle:'Wähle die Farbe deines Bandes',
+    ribbonSheetSub:'Optional — wähle eine Farbe für deine Schleife',
+    btnRibbonApply:'Farbe anwenden', btnRibbonDismiss:'Verwerfen',
+    toastRibbonApplied:'Bandfarbe angewendet ✓',
     btnCreateTxt:'Meinen Strauß erstellen',
     sheetTitle:'Eine süße Nachricht schreiben ✉',
     sheetSub:'Deine Notiz erscheint auf der Straußkarte',
@@ -632,6 +688,7 @@ wrapTitle:'Geschenkpapier',
       anemone:{name:'Anemone',mood:'Vorfreude'},
       'baby-hair':{name:'Baby Hair',mood:'Stille & Staunen'},
     },
+ribbonColorNames:['Rosa','Malve','Salbei','Himmelblau','Butter','Ringelblume'],
 envelopeNames:['Pergament','Erröten','Salbeinebel','Lavendel','Himmel','Creme'],
   },
   it: {
@@ -645,6 +702,11 @@ envelopeNames:['Pergament','Erröten','Salbeinebel','Lavendel','Himmel','Creme']
 wrapTitle:'Carta da regalo',
     todayLbl:'Oggi è',
     btnMsgTxt:'Scrivi un messaggio carino', btnMsgAdded:'Messaggio aggiunto',
+    btnRibbonTxt:'Scegli il colore del nastro', btnRibbonSet:'Colore del nastro scelto',
+    ribbonSheetTitle:'Scegli il colore del tuo nastro',
+    ribbonSheetSub:'Facoltativo — scegli un colore per il tuo fiocco',
+    btnRibbonApply:'Applica colore', btnRibbonDismiss:'Annulla',
+    toastRibbonApplied:'Colore del nastro applicato ✓',
     btnCreateTxt:'Crea il mio bouquet',
     sheetTitle:'Scrivi un messaggio carino ✉',
     sheetSub:'La tua nota apparirà sulla scheda del bouquet',
@@ -673,6 +735,7 @@ wrapTitle:'Carta da regalo',
       anemone:{name:'Anemone',mood:'anticipazione'},
       'baby-hair':{name:'Baby Hair',mood:'calma e meraviglia'},
     },
+ribbonColorNames:['Rosa','Malva','Salvia','Azzurro','Burro','Calendula'],
 envelopeNames:['pergamena','cipria','nebbia salvia','lavanda','cielo','crema'],
   },
   ja: {
@@ -686,6 +749,11 @@ envelopeNames:['pergamena','cipria','nebbia salvia','lavanda','cielo','crema'],
 wrapTitle:'ラッピングペーパー',
     todayLbl:'今日は',
     btnMsgTxt:'かわいいメッセージを書く', btnMsgAdded:'メッセージ追加済み',
+    btnRibbonTxt:'リボンの色を選ぶ', btnRibbonSet:'リボンの色を設定済み',
+    ribbonSheetTitle:'リボンの色を選んでください',
+    ribbonSheetSub:'任意 — リボンの色を選んでください',
+    btnRibbonApply:'色を適用', btnRibbonDismiss:'キャンセル',
+    toastRibbonApplied:'リボンの色を適用しました ✓',
     btnCreateTxt:'花束を作る',
     sheetTitle:'かわいいメッセージを書く ✉',
     sheetSub:'メモは花束カードに表示されます',
@@ -714,6 +782,7 @@ wrapTitle:'ラッピングペーパー',
       anemone:{name:'アネモネ',mood:'期待'},
       'baby-hair':{name:'ベイビーヘア',mood:'穏やかさと驚き'},
     },
+ribbonColorNames:['ローズ','モーブ','セージ','スカイブルー','バター','マリーゴールド'],
 envelopeNames:['パーチメント','ブラッシュ','セージミスト','ラベンダー','スカイ','クリーム'],
   },
   zh: {
@@ -727,6 +796,11 @@ envelopeNames:['パーチメント','ブラッシュ','セージミスト','ラ�
 wrapTitle:'包装纸',
     todayLbl:'今天是',
     btnMsgTxt:'写一条甜蜜的留言', btnMsgAdded:'留言已添加',
+    btnRibbonTxt:'选择缎带颜色', btnRibbonSet:'已设置缎带颜色',
+    ribbonSheetTitle:'选择你的缎带颜色',
+    ribbonSheetSub:'可选 — 为你的蝴蝶结选择颜色',
+    btnRibbonApply:'应用颜色', btnRibbonDismiss:'取消',
+    toastRibbonApplied:'缎带颜色已应用 ✓',
     btnCreateTxt:'创建我的花束',
     sheetTitle:'写一条甜蜜的留言 ✉',
     sheetSub:'你的留言将显示在花束卡片上',
@@ -755,6 +829,7 @@ wrapTitle:'包装纸',
       anemone:{name:'银莲花',mood:'期待'},
       'baby-hair':{name:'满天星',mood:'平静与惊叹'},
     },
+ribbonColorNames:['玫瑰粉','紫红','鼠尾草绿','天蓝','奶油黄','万寿菊'],
 envelopeNames:['羊皮纸','腮红','鼠尾草雾','薰衣草','天空','奶油'],
   },
   ko: {
@@ -768,6 +843,11 @@ envelopeNames:['羊皮纸','腮红','鼠尾草雾','薰衣草','天空','奶油'
 wrapTitle:'포장지',
     todayLbl:'오늘은',
     btnMsgTxt:'귀여운 메시지 쓰기', btnMsgAdded:'메시지 추가됨',
+    btnRibbonTxt:'리본 색상 선택', btnRibbonSet:'리본 색상 설정됨',
+    ribbonSheetTitle:'리본 색상을 선택하세요',
+    ribbonSheetSub:'선택 사항 — 리본에 어울리는 색상을 골라보세요',
+    btnRibbonApply:'색상 적용', btnRibbonDismiss:'취소',
+    toastRibbonApplied:'리본 색상이 적용됐어요 ✓',
     btnCreateTxt:'꽃다발 만들기',
     sheetTitle:'귀여운 메시지 쓰기 ✉',
     sheetSub:'메모가 꽃다발 카드에 표시됩니다',
@@ -796,6 +876,7 @@ wrapTitle:'포장지',
       anemone:{name:'아네모네',mood:'설렘'},
       'baby-hair':{name:'베이비 헤어',mood:'고요함과 경이'},
     },
+ribbonColorNames:['로즈','모브','세이지','스카이블루','버터','메리골드'],
 envelopeNames:['양피지','블러쉬','세이지 미스트','라벤더','스카이','크림'],
   },
   ar: {
@@ -810,6 +891,11 @@ envelopeNames:['양피지','블러쉬','세이지 미스트','라벤더','스카
 wrapTitle:'ورق التغليف',
     todayLbl:'اليوم هو',
     btnMsgTxt:'اكتبي رسالة لطيفة', btnMsgAdded:'تمّت إضافة الرسالة',
+    btnRibbonTxt:'اختيار لون الشريط', btnRibbonSet:'تم تحديد لون الشريط',
+    ribbonSheetTitle:'اختاري لون شريطك',
+    ribbonSheetSub:'اختياري — اختاري لونًا لعقدة شريطك',
+    btnRibbonApply:'تطبيق اللون', btnRibbonDismiss:'إلغاء',
+    toastRibbonApplied:'تم تطبيق لون الشريط ✓',
     btnCreateTxt:'إنشاء باقتي',
     sheetTitle:'اكتبي رسالة لطيفة ✉',
     sheetSub:'ستظهر ملاحظتك على بطاقة الباقة',
@@ -838,6 +924,7 @@ wrapTitle:'ورق التغليف',
       anemone:{name:'شقائق النعمان',mood:'ترقّب'},
       'baby-hair':{name:'بيبي هير',mood:'هدوء ودهشة'},
     },
+ribbonColorNames:['وردي','موف','مريمية','أزرق سماوي','زبدي','أقحواني'],
 envelopeNames:['رق','وردي فاتح','ضباب مريمية','خزامى','سماوي','كريمي'],
   },
 };
@@ -880,6 +967,11 @@ function applyTranslations() {
   s('el-btn-create-txt', t.btnCreateTxt);
   s('el-sheet-title', t.sheetTitle);
   s('el-sheet-sub', t.sheetSub);
+  s('el-btn-ribbon-txt', t.btnRibbonTxt);
+  s('el-ribbon-sheet-title', t.ribbonSheetTitle);
+  s('el-ribbon-sheet-sub', t.ribbonSheetSub);
+  s('el-btn-ribbon-apply', t.btnRibbonApply);
+  s('el-btn-ribbon-dismiss', t.btnRibbonDismiss);
   s('el-lbl-to', t.lblTo);
   s('el-lbl-from', t.lblFrom);
   s('el-lbl-msg', t.lblMsg);
@@ -911,10 +1003,54 @@ const FLOWER_ASPECT = {
   liry: 380/694, alcatraz: 380/676, anemone: 380/1426, 'baby-hair': 380/724,
 };
 
-const ENVELOPE_COLORS = [
-  {color:'#F5F0EC',light:true},{color:'#FAE8E0',light:true},{color:'#E8ECD8',light:true},
-  {color:'#EDE8F5',light:true},{color:'#E4EEF5',light:true},{color:'#FFF8E8',light:true},
+// Ribbon colour picker: 3 Bloom tokens (rose/mauve/sage) + a blue and 2 yellows
+// to round out the set. Tinting is done via canvas (see tintRibbon below), not
+// CSS mask/blend — html2canvas (used for the ticket download) doesn't render
+// mask-image or mix-blend-mode correctly, so the tint is baked into a real PNG
+// data-URL that both the live preview and the export just treat as a plain image.
+const RIBBON_COLORS = [
+  {color:'#E2B8C8',light:true},  // Rose (--color-rose)
+  {color:'#E086AA',light:false}, // Mauve (--color-mauve)
+  {color:'#C8D44A',light:false}, // Sage (--color-sage)
+  {color:'#8FB8D9',light:false}, // Sky Blue
+  {color:'#F0D878',light:true},  // Butter
+  {color:'#E8B84B',light:false}, // Marigold
 ];
+const RIBBON_TINT_OPACITY = 0.55;
+const ribbonTintCache = {};
+
+function tintRibbon(color, opacity) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      // source-atop only paints where the ribbon's own pixels are already
+      // opaque, so the color layer is shaped exactly like the bow — no mask
+      // needed — and the translucent alpha lets the dot pattern show through.
+      ctx.globalCompositeOperation = 'source-atop';
+      ctx.globalAlpha = opacity;
+      ctx.fillStyle = color;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL('image/png'));
+    };
+    img.src = 'images/ribbon.png';
+  });
+}
+
+async function warmRibbonTints() {
+  await Promise.all(RIBBON_COLORS.map(async c => {
+    ribbonTintCache[c.color] = await tintRibbon(c.color, RIBBON_TINT_OPACITY);
+  }));
+}
+
+// Falls back to the plain original asset when no color has been applied yet.
+function ribbonSrc(color) {
+  return (color && ribbonTintCache[color]) || 'images/ribbon.png';
+}
 
 const POSITIONS = [
   {rot:0,z:7},{rot:-16,z:6},{rot:16,z:6},
@@ -937,7 +1073,7 @@ function getPosition(i) {
 let positionCounter = 0;
 
 const state = {
-  selected:[], envelopeColor:ENVELOPE_COLORS[0].color,
+  selected:[], ribbonColor:null,
   toName:'', fromName:'', message:'', font:'serif',
 };
 
@@ -945,7 +1081,7 @@ const state = {
 /* ════════════════
    BOUQUET RENDERER
 ════════════════ */
-function renderBouquet(selectedIds, envelopeColor, small=false) {
+function renderBouquet(selectedIds, ribbonColor, small=false) {
   if (!selectedIds.length) return null;
   const scale = small ? 0.92 : 1;
   const W = Math.round(260*scale), H = Math.round(300*scale);
@@ -980,7 +1116,7 @@ function renderBouquet(selectedIds, envelopeColor, small=false) {
   html += `</div>`;
   html += `<img src="images/envelop-full.png" style="position:absolute;top:0;left:${envLeft}px;width:${envW}px;height:${H}px;z-index:10;pointer-events:none" alt="">`;
   html += `<img src="images/envelop-cover.png" style="position:absolute;top:${coverTop}px;left:${coverLeft}px;width:${coverW}px;height:${coverH}px;z-index:20;pointer-events:none" alt="">`;
-  html += `<img src="images/ribbon.png" style="position:absolute;top:${ribbonTop}px;left:${ribbonLeft}px;width:${ribbonW}px;height:${ribbonH}px;z-index:25;pointer-events:none" alt="">`;
+  html += `<img src="${ribbonSrc(ribbonColor)}" style="position:absolute;top:${ribbonTop}px;left:${ribbonLeft}px;width:${ribbonW}px;height:${ribbonH}px;z-index:25;pointer-events:none" alt="">`;
   html += `</div>`;
   return html;
 }
@@ -1070,7 +1206,15 @@ function initBouquetPreview() {
     `<div id="bp-flowers" style="position:absolute;inset:0;z-index:15"></div>` +
     `<img src="images/envelop-full.png" style="position:absolute;top:0;left:${envLeft}px;width:${envW}px;height:auto;z-index:10;pointer-events:none" alt="">` +
     `<img src="images/envelop-cover.png" style="position:absolute;top:${coverTop}px;left:${coverLeft}px;width:${coverW}px;height:${coverH}px;z-index:20;pointer-events:none" alt="">` +
-    `<img src="images/ribbon.png" style="position:absolute;top:${ribbonTop}px;left:${ribbonLeft}px;width:${ribbonW}px;height:${ribbonH}px;z-index:25;pointer-events:none" alt="">`;
+    `<img id="bp-ribbon" src="${ribbonSrc(state.ribbonColor)}" style="position:absolute;top:${ribbonTop}px;left:${ribbonLeft}px;width:${ribbonW}px;height:${ribbonH}px;z-index:25;pointer-events:none" alt="">`;
+}
+
+// Called on "Apply" in the ribbon modal — swaps the live home preview's ribbon
+// image src. The ticket doesn't need this: buildResult() re-renders it fresh
+// from state.ribbonColor every time.
+function applyRibbonColorToPreview(color) {
+  const img = document.getElementById('bp-ribbon');
+  if (img) img.src = ribbonSrc(color);
 }
 
 function addFlowerToPreview(id) {
@@ -1107,14 +1251,19 @@ function updateCreateBtn() {
   btn.disabled = state.selected.length < 1;
 }
 
-function initSwatches(containerId, colorsList, namesList, stateKey, onChange) {
+// Generic color-swatch row. Caller supplies the currently-active color (so the
+// matching swatch highlights on init — none highlight if it doesn't match any,
+// e.g. "no color chosen yet") and an onSelect(color, name) callback; the caller
+// decides what to do with the pick (write straight to state, or hold it as a
+// draft until some later "Apply").
+function initSwatches(containerId, colorsList, namesList, activeColor, onSelect) {
   const el = document.getElementById(containerId);
   el.innerHTML = '';
   colorsList.forEach((c, i) => {
     const wrap = document.createElement('div');
     wrap.className = 'swatch-wrap';
     const sw = document.createElement('div');
-    sw.className = 'swatch'+(c.light?' light':'')+(i===0?' active':'');
+    sw.className = 'swatch'+(c.light?' light':'')+(c.color===activeColor?' active':'');
     sw.style.background = c.color;
     sw.title = namesList[i];
     const lbl = document.createElement('div');
@@ -1123,8 +1272,7 @@ function initSwatches(containerId, colorsList, namesList, stateKey, onChange) {
     sw.addEventListener('click', () => {
       el.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
       sw.classList.add('active');
-      state[stateKey] = c.color;
-      onChange();
+      onSelect(c.color, namesList[i]);
     });
     wrap.appendChild(sw);
     wrap.appendChild(lbl);
@@ -1174,6 +1322,52 @@ function initModal() {
   });
 }
 
+// Ribbon color picker modal. Swatch clicks only update a local draft + the
+// modal's own live preview — nothing touches state.ribbonColor (and therefore
+// the home preview / ticket) until "Apply" is pressed. "Dismiss" (or tapping
+// the backdrop) just closes and throws the draft away, so re-opening the modal
+// always starts from whatever was last actually applied.
+function initRibbonModal() {
+  const overlay = document.getElementById('modal-ribbon');
+  const modalImg = document.getElementById('ribbon-modal-img');
+  const nameEl = document.getElementById('el-ribbon-color-name');
+  let draftColor = state.ribbonColor;
+
+  function updatePreview(color, name) {
+    modalImg.src = ribbonSrc(color);
+    nameEl.textContent = name || ' ';
+  }
+
+  function openModal() {
+    draftColor = state.ribbonColor;
+    updatePreview(draftColor, colorNameFor(draftColor));
+    initSwatches('ribbon-swatches', RIBBON_COLORS, T.ribbonColorNames, draftColor, (color, name) => {
+      draftColor = color;
+      updatePreview(color, name);
+    });
+    overlay.classList.add('open');
+  }
+
+  function colorNameFor(color) {
+    const i = RIBBON_COLORS.findIndex(c => c.color === color);
+    return i > -1 ? T.ribbonColorNames[i] : '';
+  }
+
+  document.getElementById('btn-open-ribbon').addEventListener('click', openModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+  document.getElementById('btn-ribbon-dismiss').addEventListener('click', () => overlay.classList.remove('open'));
+
+  document.getElementById('btn-ribbon-apply').addEventListener('click', () => {
+    state.ribbonColor = draftColor;
+    applyRibbonColorToPreview(draftColor);
+    overlay.classList.remove('open');
+    const btn = document.getElementById('btn-open-ribbon');
+    btn.classList.toggle('has-msg', !!draftColor);
+    document.getElementById('el-btn-ribbon-txt').textContent = draftColor ? T.btnRibbonSet : T.btnRibbonTxt;
+    showToast(T.toastRibbonApplied);
+  });
+}
+
 /* ════════════════
    RESULT SCREEN
 ════════════════ */
@@ -1185,7 +1379,7 @@ function flowerSummary() {
 
 function buildResult() {
   const fontClass = {serif:'font-serif',script:'font-script',mono:'font-mono'}[state.font]||'font-serif';
-  const boutSVG = renderBouquet(state.selected, state.envelopeColor, true);
+  const boutSVG = renderBouquet(state.selected, state.ribbonColor, true);
   document.getElementById('ticket-body').innerHTML = `
     <div class="receipt-brand">
       <img src="images/logo-bloom-studio.png" alt="Bloom Studio" class="receipt-logo">
@@ -1437,7 +1631,7 @@ function initGradientOrbs() {
   requestAnimationFrame(frame);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   applyTranslations();
   initGradientOrbs();
   initCarousel();
@@ -1445,6 +1639,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initPetals();
   initModal();
   initBouquetPreview();
+  // Warm all 6 tinted ribbon variants before the picker becomes interactive, so
+  // a fast click never races an unfinished canvas tint (ribbonSrc() would just
+  // silently fall back to the plain original otherwise).
+  await warmRibbonTints();
+  initRibbonModal();
 
   document.getElementById('btn-create').addEventListener('click', () => {
     if (state.selected.length < 1) return;
@@ -1471,6 +1670,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('input-from').value = '';
     document.getElementById('input-msg').value = '';
     document.getElementById('char-bar').textContent = '0 / 140';
+    state.ribbonColor = null;
+    applyRibbonColorToPreview(null);
+    const ribbonBtn = document.getElementById('btn-open-ribbon');
+    ribbonBtn.classList.remove('has-msg');
+    document.getElementById('el-btn-ribbon-txt').textContent = T.btnRibbonTxt;
     positionCounter = 0;
     const flowersEl = document.getElementById('bp-flowers');
     if (flowersEl) flowersEl.innerHTML = '';
